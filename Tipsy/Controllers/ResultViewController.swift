@@ -15,8 +15,11 @@ class ResultViewController: UIViewController {
     @IBOutlet var totalLabel: UILabel!
     @IBOutlet var settingLabel: UILabel!
     
+    //MARK: - Variables
     
     var total: String?
+    var numOfPeople: String?
+    
     // MARK: - IBActions
     
     @IBAction func recalculatePressed(_ sender: UIButton) {
@@ -33,6 +36,7 @@ class ResultViewController: UIViewController {
     
     func updateUI() {
         totalLabel.text = total
+        settingLabel.text = numOfPeople
     }
 
     /*

@@ -34,14 +34,20 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func calculatePressed(_ sender: UIButton) {
+        
         performSegue(withIdentifier: "goToResult", sender: self)
     }
     
     // MARK: - Class Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let sentBill = Double(totalBillEntered.text!) else { return }
+        guard let numberOfSplits = Double(splitLabel.text ?? "2") else { return }
+        calculateBrain.calculteBill(sentBill, numberOfSplits)
+        
         let destinationVC = segue.destination as! ResultViewController
-        //destinationVC.total = calculateBrain.getTotalPerPerson()
+        destinationVC.total = calculateBrain.getTotalPerPerson()
+        destinationVC.numOfPeople = calculateBrain.getSplitMessage(splitLabel.text! )
     }
 }
 

@@ -10,13 +10,12 @@ import UIKit
 
 struct CalculateBrain {
     
-    var totalBill = 0.0
-    var percentage = 0.0
-    
-    mutating func calculteBill(_ bill: Double,_ split: Double) -> Double {
-        let tip = (bill * percentage)
-        totalBill = (tip + bill) / split
-        return totalBill
+    var bill: Bill?
+    var stupid = 10.0
+    mutating func calculteBill(_ sentBill: Double,_ split: Double) {
+        let tip = (sentBill * (bill?.percentage ?? 0.0))
+        bill?.totalBill = (tip + sentBill) / split
+       
     }
     
     mutating func selectedPercentage(currentButton sender: UIButton, _ zeroButton: UIButton, _ tenButton: UIButton, _ twentyButton: UIButton){
@@ -24,26 +23,27 @@ struct CalculateBrain {
             zeroButton.isSelected = true
             tenButton.isSelected = false
             twentyButton.isSelected = false
-            percentage = 0.0
+            bill = Bill(totalBill: 0, percentage: 0.0)
         }
         else if (sender.currentTitle == tenButton.currentTitle){
             zeroButton.isSelected = false
             tenButton.isSelected = true
             twentyButton.isSelected = false
-            percentage = 0.1
+            bill = Bill(totalBill: 0, percentage: 0.1)
         }
         else {
             zeroButton.isSelected = false
             tenButton.isSelected = false
             twentyButton.isSelected = true
-            percentage = 0.2
+            bill = Bill(totalBill: 0, percentage: 0.2)
         }
     }
     func getTotalPerPerson() -> String{
-        String(round(totalBill))
+        return String(format: "%.2f", bill?.totalBill ?? 0)
         
     }
-    func getSplitMessage() {
-        
+    
+    func getSplitMessage(_ numberOfPeople: String) -> String {
+        return "Split between \(numberOfPeople) people, with \(bill!.percentage * 100)% tip."
     }
 }
