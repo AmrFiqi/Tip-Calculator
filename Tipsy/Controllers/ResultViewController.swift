@@ -9,7 +9,20 @@
 import UIKit
 
 class ResultViewController: UIViewController {
-
+    
+    // MARK: - IBOutlets
+    
+    @IBOutlet var totalLabel: UILabel!
+    @IBOutlet var settingLabel: UILabel!
+    
+    // MARK: - IBActions
+    
+    @IBAction func recalculatePressed(_ sender: UIButton) {
+        
+    }
+    
+    // MARK: - Class Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
