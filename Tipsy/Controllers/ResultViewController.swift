@@ -15,20 +15,25 @@ class ResultViewController: UIViewController {
     @IBOutlet var totalLabel: UILabel!
     @IBOutlet var settingLabel: UILabel!
     
+    
+    var total: String?
     // MARK: - IBActions
     
     @IBAction func recalculatePressed(_ sender: UIButton) {
-        
+        self.dismiss(animated: true)
     }
     
     // MARK: - Class Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        updateUI()
         // Do any additional setup after loading the view.
     }
     
+    func updateUI() {
+        totalLabel.text = total
+    }
 
     /*
     // MARK: - Navigation

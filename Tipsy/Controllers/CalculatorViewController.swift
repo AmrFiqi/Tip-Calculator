@@ -12,57 +12,36 @@ class CalculatorViewController: UIViewController {
     
     // MARK: - IBOutlets
     
+    @IBOutlet var totalBillEntered: UITextField!
     @IBOutlet var zeroPercentButton: UIButton!
     @IBOutlet var tenPercentButton: UIButton!
     @IBOutlet var twentyPercentButton: UIButton!
-    @IBOutlet var numberOfPeople: UILabel!
+    @IBOutlet var splitLabel: UILabel!
     
-    // MARK: - Variable
+    // MARK: - Struct Object
     
-    var tip: Float = 0.0
+    var calculateBrain = CalculateBrain()
     
     // MARK: - IBAction Methods
     
     @IBAction func tipChanged(_ sender: UIButton) {
-        if (sender.currentTitle == zeroPercentButton.currentTitle){
-            zeroPercentButton.isSelected = true
-            tenPercentButton.isSelected = false
-            twentyPercentButton.isSelected = false
-        }
-        else if (sender.currentTitle == tenPercentButton.currentTitle){
-            zeroPercentButton.isSelected = false
-            tenPercentButton.isSelected = true
-            twentyPercentButton.isSelected = false
-        }
-        else {
-            zeroPercentButton.isSelected = false
-            tenPercentButton.isSelected = false
-            twentyPercentButton.isSelected = true
-        }
+        calculateBrain.selectedPercentage(currentButton: sender, zeroPercentButton, tenPercentButton, twentyPercentButton)
+        totalBillEntered.endEditing(true)
     }
 
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
+        splitLabel.text = Int(sender.value).description
     }
     
     @IBAction func calculatePressed(_ sender: UIButton) {
-        print(checkPressedButton())
+        performSegue(withIdentifier: "goToResult", sender: self)
     }
     
     // MARK: - Class Methods
     
-    func checkPressedButton() -> Float {
-        if zeroPercentButton.isSelected == true {
-            tip = 0.0
-            return tip
-        }
-        else if tenPercentButton.isSelected == true {
-            tip = 0.1
-            return tip
-        }
-        else {
-            tip = 0.2
-            return tip
-        }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! ResultViewController
+        //destinationVC.total = calculateBrain.getTotalPerPerson()
     }
 }
 
